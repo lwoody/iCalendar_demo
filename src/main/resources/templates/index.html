@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<!--<form th:action="@{/add}" th:object="${data}" method="post">-->
+    <!--Event Summary:<br/>-->
+    <!--<input type="text" name="eventSummary" th:field="*{eventSummary}"/>-->
+    <!--<br/>-->
+    <!--Start Date:<br/>-->
+    <!--<input type="date" name="startDate" th:value="*{startDate}"/>-->
+    <!--<br/>-->
+    <!--End Date:<br/>-->
+    <!--<input type="date" name="endDate" th:value="*{endDate}"/>-->
+    <!--<br/><br/>-->
+    <!--<input type="submit" value="Submit" id=""/>-->
+<!--</form>-->
+
+<span th:each="data : ${dataList}">
+    <h3 th:text="'summary:'+${data.eventSummary}"></h3>
+    <h3 th:text="'startDate:'+${data.startDate}"></h3>
+    <h3 th:text="'endDate:'+${data.endDate}"></h3>
+    <h3>==========</h3>
+</span>
+
+
+<h1 id="post">Post</h1>
+
+Event Summary:<br/>
+<input type="text" name="eventSummary" id="eventSummary" field="eventSummary"/>
+<br/>
+Start Date:<br/>
+<input type="date" name="startDate" id="startDate" value="startDate"/>
+<br/>
+End Date:<br/>
+<input type="date" name="endDate" id="endDate" value="endDate"/>
+<br/><br/>
+<button id="addData" type="button">submit</button>
+
+<p></p>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="js/index.js"></script>
+<!--<script type="text/javascript" th:src="@{/js/index.js}"></script>-->
+</body>
+</html>
