@@ -4,6 +4,7 @@
 
 $(document).ready(function() {
 
+    //이벤트 추가 저장
     $("#addData").click(function () {
         var eventSummary = $("#eventSummary").val();
         var startDate = $("#startDate").val();
@@ -19,7 +20,12 @@ $(document).ready(function() {
                 $("#post").append("<h3>summary: "+eventSummary+"</h3>"
                                 +"<h3>startDate: "+startDate+"</h3>"
                                 +"<h3>endDate: "+endDate+"</h3>"
-                                +"<h2>========</h2>");
+                                +"<h3>========</h3>");
         });
+    })
+
+    //캘린더로 다시 돌아가기
+    $("#back").click(function(){
+        window.location.href = "http://localhost:8080/month_6";
     })
 });
