@@ -22,7 +22,7 @@ import java.util.List;
 @EnableAutoConfiguration
 public class iCalController {
 
-    @RequestMapping(value="/month_6" , method = RequestMethod.GET)
+    @RequestMapping(value="/month_6")
     public String month_6(Model model){
 
         //사용자 기존 캘린더 입력정보 ics로부터 불러오기
@@ -49,6 +49,35 @@ public class iCalController {
 
         model.addAttribute("dataList",dataList);
         return "month_6";
+    }
+
+    @RequestMapping(value = "/month_7")
+    public String month_7(Model model){
+
+        //사용자 기존 캘린더 입력정보 ics로부터 불러오기
+        File file = new File("/Users/LEE/Desktop/iCalendar_demo/target/classes/static/iCalData/iCalData.ics");
+
+        //기존 입력정보의 이벤트들 리스트로 담기
+        ICalendar ical = null;
+        List<CalendarData> dataList = new ArrayList<>();
+        try {
+            ical = Biweekly.parse(file).first();//VCALENDAR는 유일하다 가정
+        } catch (IOException e) {
+            e.printStackTrace();
+        }finally {
+
+            //각 이벤트의 정보(내용,날짜)를 Calendar오브젝트에 담기
+            for(VEvent event:ical.getEvents()){
+                CalendarData data = new CalendarData();
+                data.setEventSummary(event.getSummary().getValue());
+                data.setStartDate(event.getDateStart().getValue());
+                data.setEndDate(event.getDateEnd().getValue());
+                dataList.add(data);
+            }
+        }
+
+        model.addAttribute("dataList",dataList);
+        return "month_7";
     }
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)

@@ -11,10 +11,10 @@ var startMonth, endMonth, orientation = 1;
 
 $(document).ready(function() {
 
-    /*<![CDATA[*/
-    startOption.options[[[${month}]]].selected = true;
-    endOption.options[[[${month}]]].selected = true;
-    /*]]>*/
+    //select option 메인 페이지 달로 초기화
+    $("#start_month").val($('#monthPreview').attr("value"));
+    $("#end_month").val($('#monthPreview').attr("value"));
+
 
     $("._close").click(function () {
         window.close();

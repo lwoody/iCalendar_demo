@@ -66,7 +66,7 @@
         </div>
         <div id="content" class="_content">
             <div class="print_type">
-                <p class="_preview preview">
+                <p class="_preview preview" id="monthPreview" th:value='${month}'>
                     <img id="previewImage" th:src="'/images/sample' + ${month} + '.png'" style="width: 343px; height: 252px;" alt="월간 인쇄 미리보기" title="월간 인쇄 미리보기">
 
                 <p class="_preview_desc desc" style="display: none;"><em><strong>가로 설정</strong>에 최적화된 스타일 입니다. 용지방향은 가로로 출력됩니다.</em></p>
