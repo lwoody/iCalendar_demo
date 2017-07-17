@@ -26,6 +26,6 @@ $(document).ready(function() {
 
     //캘린더로 다시 돌아가기
     $("#back").click(function(){
-        window.location.href = "http://localhost:8080/month_6";
+        window.location.href = "http://localhost:8080/month_7";
     })
 });

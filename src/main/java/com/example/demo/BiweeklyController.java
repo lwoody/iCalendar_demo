@@ -160,34 +160,6 @@ public class BiweeklyController {
         return "index";
     }
 
-//    //free busy component
-//    VFreeBusy freebusy = new VFreeBusy();
-//
-//    FreeBusy fb = new FreeBusy();
-//            fb.setType(FreeBusyType.BUSY);
-//    //date오브젝트에 시간 설정하기
-//    Calendar cal = Calendar.getInstance();
-//            cal.set(Calendar.HOUR_OF_DAY,13);
-//            cal.set(Calendar.MINUTE,0);
-//            cal.set(Calendar.SECOND,0);
-//            cal.set(Calendar.MILLISECOND,0);
-//    Date d = cal.getTime();
-//
-//            freebusy.setDateStart(d);
-//            freebusy.setDateEnd(d);
-//
-//            freebusy.addFreeBusy(fb);
-//            ical.addFreeBusy(freebusy);
-//
-//    //to-do component
-//    VTodo todo = new VTodo();
-//            todo.setSummary("Complete report");
-//    Date due = new Date();
-//            todo.setDateDue(due);
-//            todo.setStatus(Status.confirmed());
-//
-//            ical.addTodo(todo);
-
     @Autowired
     private PrintConverter converter;
 
