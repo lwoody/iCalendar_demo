@@ -184,7 +184,7 @@ public class PrintConverter {
 
         String extendedUrl = "wkhtmltopdf" +
             (orientation == 1 ? " -O landscape " : " ") +
-            "%s /Users/LEE/Desktop/iCalendar_demo/target/classes/static/tempPdf/month_result.pdf";
+            "%s C:/Users/NAVER/Desktop/iCalendar_demo/target/classes/static/tempPdf/month_result.pdf";
 
         command = String.format(extendedUrl, temp);
 

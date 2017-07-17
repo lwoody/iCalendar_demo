@@ -20,7 +20,6 @@ $(document).ready(function() {
     })
 
 
-
     // 2. 입력된 이벤트 summary를 해당 셀에 추가해줌
 
 

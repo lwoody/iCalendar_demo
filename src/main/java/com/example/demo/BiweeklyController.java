@@ -3,8 +3,9 @@ package com.example.demo;
 import biweekly.Biweekly;
 import biweekly.ICalendar;
 import biweekly.component.VEvent;
+import biweekly.io.TimezoneAssignment;
+import net.fortuna.ical4j.data.ParserException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,19 +15,25 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TimeZone;
 
 /**
  * Created by NAVER on 2017-07-14.
  */
 @Controller
-@EnableAutoConfiguration
-public class iCalController {
+public class BiweeklyController {
+
+    @GetMapping("/index2")
+    public String index2(Model model) throws IOException, ParserException {
+
+        return "index2";
+    }
 
     @RequestMapping(value="/month_6")
     public String month_6(Model model){
 
         //사용자 기존 캘린더 입력정보 ics로부터 불러오기
-        File file = new File("/Users/LEE/Desktop/iCalendar_demo/target/classes/static/iCalData/iCalData.ics");
+        File file = new File("C:/Users/NAVER/Desktop/iCalendar_demo/target/classes/static/iCalData/iCalData.ics");
 
         //기존 입력정보의 이벤트들 리스트로 담기
         ICalendar ical = null;
@@ -55,7 +62,7 @@ public class iCalController {
     public String month_7(Model model){
 
         //사용자 기존 캘린더 입력정보 ics로부터 불러오기
-        File file = new File("/Users/LEE/Desktop/iCalendar_demo/target/classes/static/iCalData/iCalData.ics");
+        File file = new File("C:/Users/NAVER/Desktop/iCalendar_demo/target/classes/static/iCalData/iCalData.ics");
 
         //기존 입력정보의 이벤트들 리스트로 담기
         ICalendar ical = null;
@@ -84,7 +91,7 @@ public class iCalController {
     public String index(Model model){
 
         //사용자 기존 캘린더 입력정보 ics로부터 불러오기
-        File file = new File("/Users/LEE/Desktop/iCalendar_demo/target/classes/static/iCalData/iCalData.ics");
+        File file = new File("C:/Users/NAVER/Desktop/iCalendar_demo/target/classes/static/iCalData/iCalData.ics");
 
         //기존 입력정보의 이벤트들 리스트로 담기
         ICalendar ical = null;
@@ -116,13 +123,24 @@ public class iCalController {
     public String add(@ModelAttribute CalendarData data, Model model){
 
         //기존 데이터파일 불러오기(사용자의 고유 저장공간)
-        File file = new File("/Users/LEE/Desktop/iCalendar_demo/target/classes/static/iCalData/iCalData.ics");
+        File file = new File("C:/Users/NAVER/Desktop/iCalendar_demo/target/classes/static/iCalData/iCalData.ics");
         ICalendar ical = null;
         try {
             ical = Biweekly.parse(file).first();//VCALENDAR component가 1개 존재한다고 가정
+
+            //timezone 적용
+            //TimezoneAssignment object 생성
+            TimezoneAssignment seoul = TimezoneAssignment.download(
+                    TimeZone.getTimeZone("Asia/Seoul"),
+                    true
+            );
+            //iCalendar object에 설정
+            ical.getTimezoneInfo().setDefaultTimezone(seoul);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         //새로운 이벤트 생성
         VEvent event = new VEvent();
 
@@ -142,6 +160,34 @@ public class iCalController {
         return "index";
     }
 
+//    //free busy component
+//    VFreeBusy freebusy = new VFreeBusy();
+//
+//    FreeBusy fb = new FreeBusy();
+//            fb.setType(FreeBusyType.BUSY);
+//    //date오브젝트에 시간 설정하기
+//    Calendar cal = Calendar.getInstance();
+//            cal.set(Calendar.HOUR_OF_DAY,13);
+//            cal.set(Calendar.MINUTE,0);
+//            cal.set(Calendar.SECOND,0);
+//            cal.set(Calendar.MILLISECOND,0);
+//    Date d = cal.getTime();
+//
+//            freebusy.setDateStart(d);
+//            freebusy.setDateEnd(d);
+//
+//            freebusy.addFreeBusy(fb);
+//            ical.addFreeBusy(freebusy);
+//
+//    //to-do component
+//    VTodo todo = new VTodo();
+//            todo.setSummary("Complete report");
+//    Date due = new Date();
+//            todo.setDateDue(due);
+//            todo.setStatus(Status.confirmed());
+//
+//            ical.addTodo(todo);
+
     @Autowired
     private PrintConverter converter;
 
@@ -151,7 +197,7 @@ public class iCalController {
         PrintRequest print = new PrintRequest();
 
         String extendIn = "http://localhost:8080/month_" + month;
-        String extendOut = "/Users/LEE/Desktop/iCalendar_demo/target/classes/static/images/sample" + month + ".png";
+        String extendOut = "C:/Users/NAVER/Desktop/iCalendar_demo/target/classes/static/images/sample" + month + ".png";
 
         print.setIn(extendIn);
         print.setOut(extendOut);
@@ -162,7 +208,7 @@ public class iCalController {
         converter.createImage(print,0);
 
         //세로방향 미리보기 이미지 생성해둠
-        String tempExtendOut = "/Users/LEE/Desktop/iCalendar_demo/target/classes/static/images/sample_vertical.png";
+        String tempExtendOut = "C:/Users/NAVER/Desktop/iCalendar_demo/target/classes/static/images/sample_vertical.png";
         print.setOut(tempExtendOut);
         converter.createImage(print,1);
 
