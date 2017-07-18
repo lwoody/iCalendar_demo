@@ -128,7 +128,7 @@ public class Biweekly2Controller {
         dev1.setParticipationLevel(ParticipationLevel.REQUIRED);
         event.addAttendee(dev1);
 
-        Attendee dev2 = new Attendee("참가자2","dev1@mycompany.com");
+        Attendee dev2 = new Attendee("참가자2","dev2@mycompany.com");
         dev2.setParticipationLevel(ParticipationLevel.OPTIONAL);
         event.addAttendee(dev2);
 

@@ -60,6 +60,21 @@
 			<version>2.0.0</version>
 		</dependency>
 
+		<!--&lt;!&ndash;im4java&ndash;&gt;-->
+		<!--<dependency>-->
+			<!--<groupId>org.im4java</groupId>-->
+			<!--<artifactId>im4java</artifactId>-->
+			<!--<version>1.4.0</version>-->
+		<!--</dependency>-->
+
+		<!-- https://mvnrepository.com/artifact/jmagick/jmagick -->
+		<dependency>
+			<groupId>jmagick</groupId>
+			<artifactId>jmagick</artifactId>
+			<version>6.6.9</version>
+			<scope>provided</scope>
+		</dependency>
+
 	</dependencies>
 
 	<build>

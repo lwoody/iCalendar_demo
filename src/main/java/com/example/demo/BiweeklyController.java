@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -27,6 +28,10 @@ public class BiweeklyController {
     public String index2(Model model) throws IOException, ParserException {
 
         return "index2";
+    }
+    @RequestMapping("/index3")
+    public String index3(Model model){
+        return "index3";
     }
 
     @RequestMapping(value="/month_6")
@@ -166,6 +171,8 @@ public class BiweeklyController {
     @PostMapping("/preview")
     public String viewPreview(@RequestParam String month, Model model){
 
+        Date startTime = new Date();
+
         PrintRequest print = new PrintRequest();
 
         String extendIn = "http://localhost:8080/month_" + month;
@@ -183,6 +190,11 @@ public class BiweeklyController {
         String tempExtendOut = "C:/Users/NAVER/Desktop/iCalendar_demo/target/classes/static/images/sample_vertical.png";
         print.setOut(tempExtendOut);
         converter.createImage(print,1);
+
+        Date endTime = new Date();
+
+        long lTime = endTime.getTime() - startTime.getTime();
+        System.out.println("TIME : " + lTime + "(ms)");
 
         return "preview";
     }

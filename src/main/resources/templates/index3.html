@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<script>
+    function takeScreenShot(){
+
+//        $.get("/month_6.html", function(html_string)
+//        {
+//            alert(html_string);
+//        },'html');
+
+        //iframe으로
+        var iframe=document.createElement('iframe');
+        //iframe.style.visibility="hidden";
+        iframe.scrollHeight;
+        iframe.scrollWidth;
+        iframe.style.width = "100%";
+        iframe.style.height = "100%";
+        $('body').append($(iframe));
+        setTimeout(function(){
+            var iframedoc=iframe.contentDocument||iframe.contentWindow.document;
+            $.get("html/month_6.html", function(html_string)
+            {
+                $('body',$(iframedoc)).html(html_string);
+                html2canvas(iframedoc.body, {
+                    onrendered: function(canvas) {
+                        //resize
+                        var extra_canvas = document.createElement("canvas");
+                        extra_canvas.setAttribute('width',1000);
+                        extra_canvas.setAttribute('height',1000);
+                        var ctx = extra_canvas.getContext('2d');
+                        ctx.drawImage(canvas,0,0,canvas.width, canvas.height,0,0,1000,1000);
+                        var dataURL = extra_canvas.toDataURL();
+                        //이미지
+                        var url =canvas.toDataURL();
+                        $("#previewImage").attr({"src":dataURL,"style":"width: 500px; height: 500px;"});
+
+                        $('body').removeChild(iframe);
+                    }
+                });
+            },'html');
+        }, 10);
+
+//        //hidden된 iframe의 화면 스크린샷함
+//        $.get("/month_6.html", function(response) {
+//
+//            console.log ("Hey I found out " + $(response).find("#mainTitle").text());
+//
+//            html2canvas(
+//                document.getElementsById("test"), {
+//                    onrendered: function (canvas) {
+//                        document.body.appendChild(canvas);
+//                    },
+//                    width:320,
+//                    height:220
+//                });
+//        });
+
+    }
+</script>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <div id="test">Test content</div>
+    <button onclick="takeScreenShot()">to image</button>
+</head>
+<body>
+<img id="previewImage"></img>
+
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="js/html2canvas.js"></script>
+</html>
