@@ -24,6 +24,80 @@
     <link type="text/css" rel="stylesheet" href="css/preview.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
+    <script>
+        function takeScreenShot(){
+
+
+
+//        $.get("/month_6.html", function(html_string)
+//        {
+//            html2canvas(html_string.body, {
+//                onrendered: function(canvas) {
+//                    document.body.appendChild(canvas);
+//                }
+//            });
+//        },'html');
+
+            //iframe으로
+            var iframe=document.createElement('iframe');
+
+            //iframe.style.visibility="hidden";
+            $('body').append($(iframe));
+            setTimeout(function(){
+                //var iframedoc=iframe.contentDocument||iframe.contentWindow.document;
+
+                $.get("html/month_6.html", function(html_string)
+                {
+                    var dom = $.parseHTML(html_string);
+
+                    var markup = html_string;
+                    var parser = new DOMParser()
+                    var el = parser.parseFromString(markup, "text/html");
+                    console.log(el.body);
+
+//                    $('body',$(iframedoc)).html(html_string);
+//                    iframe.style.width = "100%";
+//                    iframe.style.height = "100%";
+
+                    html2canvas(document.body, {
+                        onrendered: function(canvas) {
+//                            //resize
+//                            var extra_canvas = document.createElement("canvas");
+//                            extra_canvas.setAttribute('width',1000);
+//                            extra_canvas.setAttribute('height',1000);
+//                            var ctx = extra_canvas.getContext('2d');
+//                            ctx.drawImage(canvas,0,0,canvas.width, canvas.height,0,0,1000,1000);
+//                            var dataURL = extra_canvas.toDataURL();
+                            //이미지
+                            var url =canvas.toDataURL();
+                            $("#previewImage").attr({"src":dataURL,"style":"width: 500px; height: 500px;"});
+                            document.body.appendChild(canvas);
+                            //$('body').removeChild(iframe);
+                        }
+                    });
+                },'html');
+            }, 10);
+
+
+
+//        //hidden된 iframe의 화면 스크린샷함
+//        $.get("/month_6.html", function(response) {
+//
+//            console.log ("Hey I found out " + $(response).find("#mainTitle").text());
+//
+//            html2canvas(
+//                document.getElementsById("test"), {
+//                    onrendered: function (canvas) {
+//                        document.body.appendChild(canvas);
+//                    },
+//                    width:320,
+//                    height:220
+//                });
+//        });
+
+        }
+    </script>
+
     <style>
         .fog {
             position: absolute;
@@ -320,6 +394,11 @@
             <button type="button" onclick="save()" name="type" value="save">저장</button>
             <a href="#" download="filname" id="saveLink" hidden>savelink</a>
 
+
+            <button type="button" onclick="takeScreenShot()">프리뷰보여주기</button>
+
+
+
             <script language="JavaScript">
                 var __sFlashVars = "naverme=1";
                 if (__sUserLocale != 'ko') {
@@ -489,4 +568,5 @@
 
 
 <script type="text/javascript" th:src="@{/js/preview.js}"></script>
+<script src="js/html2canvas.js"></script>
 </body></html>
